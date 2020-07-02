@@ -1627,12 +1627,12 @@ module RenderedElement = {
   let func: (unit => unit) => unit =
     Js_of_ocaml__Js.Unsafe.eval_string(
       {|
-    function (a) {
+    (function (a) {
       return new Promise(resolve => {
         a()
         resolve()
       })
-    }
+    })
   |},
     );
 
