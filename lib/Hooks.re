@@ -242,14 +242,17 @@ module Effect = {
         );
 
         if (comparator(previousConditionValue, currentConditionValue)) {
+          print_endline("Comparator true");
           state.previousCondition = condition;
           Some(
             () => {
+              print_endline("Before handler");
               executeOptionalHandler(cleanupHandler);
               state.cleanupHandler = handler();
             },
           );
         } else {
+          print_endline("Comparator false");
           state.previousCondition = condition;
           None;
         };
