@@ -94,7 +94,9 @@ module State = {
   let wrapAsHook = s => State(s);
 
   let setState = (nextValue, stateContainer) => {
+    print_endline("IN #1");
     stateContainer.nextValue = nextValue;
+    print_endline("IN #2");
   };
 
   let flush = ({currentValue, nextValue}) =>
