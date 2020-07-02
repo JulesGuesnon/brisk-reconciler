@@ -1624,10 +1624,23 @@ module RenderedElement = {
     hostView;
   };
 
+  let func: (unit => unit) => unit =
+    Js_of_ocaml__Js.Unsafe.eval_string(
+      {|
+    function (a) {
+      return new Promise(resolve => {
+        a()
+        resolve()
+      })
+    }
+  |},
+    );
+
   let executePendingEffects =
       ({enqueuedEffects} as renderedElement: t(_, _)) => {
     print_endline("executePendingEffects");
-    enqueuedEffects();
+
+    func(enqueuedEffects);
     {...renderedElement, enqueuedEffects: EffectSequence.noop};
   };
 };

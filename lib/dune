@@ -1,3 +1,4 @@
 (library
  (name brisk_reconciler)
- (public_name brisk-reconciler))
+ (public_name brisk-reconciler)
+ (preprocess (pps js_of_ocaml-ppx)))
