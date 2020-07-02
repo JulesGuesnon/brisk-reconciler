@@ -1626,6 +1626,7 @@ module RenderedElement = {
 
   let executePendingEffects =
       ({enqueuedEffects} as renderedElement: t(_, _)) => {
+    print_endline("executePendingEffects");
     enqueuedEffects();
     {...renderedElement, enqueuedEffects: EffectSequence.noop};
   };

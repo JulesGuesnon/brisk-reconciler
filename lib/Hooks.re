@@ -94,9 +94,7 @@ module State = {
   let wrapAsHook = s => State(s);
 
   let setState = (nextValue, stateContainer) => {
-    print_endline("IN #1");
     stateContainer.nextValue = nextValue;
-    print_endline("IN #2");
   };
 
   let flush = ({currentValue, nextValue}) =>
@@ -235,26 +233,15 @@ module Effect = {
           | OnMount => previousConditionValue
           };
 
-        print_endline(
-          Printf.sprintf(
-            "Previous: %f | Current: %f",
-            Obj.magic(previousConditionValue),
-            Obj.magic(currentConditionValue),
-          ),
-        );
-
         if (comparator(previousConditionValue, currentConditionValue)) {
-          print_endline("Comparator true");
           state.previousCondition = condition;
           Some(
             () => {
-              print_endline("Before handler");
               executeOptionalHandler(cleanupHandler);
               state.cleanupHandler = handler();
             },
           );
         } else {
-          print_endline("Comparator false");
           state.previousCondition = condition;
           None;
         };
@@ -270,7 +257,9 @@ module Effect = {
         )
       | OnMount =>
         switch (lifecycle) {
-        | Mount => Some(() => state.cleanupHandler = handler())
+        | Mount =>
+          print_endline("MOUNT CASE");
+          Some(() => state.cleanupHandler = handler());
         | Update => None
         | Unmount => cleanupHandler
         }
