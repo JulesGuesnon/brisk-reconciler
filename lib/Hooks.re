@@ -317,8 +317,12 @@ let pendingEffects = (~lifecycle, hooks) =>
         switch (opaqueValue) {
         | HeterogenousList.Any(Effect.Effect(state)) =>
           switch (Effect.get(~lifecycle, state)) {
-          | Some(effect) => EffectSequence.chain(acc, effect)
-          | None => acc
+          | Some(effect) =>
+            print_endline("EFFECT");
+            EffectSequence.chain(acc, effect);
+          | None =>
+            print_endline("NO EFFECT");
+            acc;
           }
         | _ => acc
         },
