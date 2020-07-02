@@ -232,6 +232,15 @@ module Effect = {
           | Always => previousConditionValue
           | OnMount => previousConditionValue
           };
+
+        print_endline(
+          Printf.sprintf(
+            "Previous: %f | Current: %f",
+            Obj.magic(previousConditionValue),
+            Obj.magic(currentConditionValue),
+          ),
+        );
+
         if (comparator(previousConditionValue, currentConditionValue)) {
           state.previousCondition = condition;
           Some(
