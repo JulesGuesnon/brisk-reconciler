@@ -8,10 +8,6 @@ let chain = (f, f') =>
   } else if (f === noop) {
     f';
   } else {
-    print_endline("BOTH CASE");
-    f();
-    f'();
-
     () => {
       f();
       f'();
